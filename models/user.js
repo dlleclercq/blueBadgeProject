@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         passwordhash: {
-            type: DateTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
     });

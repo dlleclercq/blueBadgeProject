@@ -1,7 +1,7 @@
 // this is for user login and signup
 
 const router = require('express').Router()
-const User = require(/..db').import(../models/user)
+const User = require('../db').import('../models/user')
 
 //USER SIGNUP
 
@@ -37,7 +37,7 @@ router.post('/login', function(req, res) {
     .then(function loginSuccess(user) {
         if (user) {
             
-            res.status(200).jason({
+            res.status(200).json({
                 user: user,
                 message: 'User Successfully Logged In'
             })
@@ -48,4 +48,4 @@ router.post('/login', function(req, res) {
     .catch(err => res.status(500).json ({ error: err}))
 })
 
-module.exports.router;
+module.exports = router;
