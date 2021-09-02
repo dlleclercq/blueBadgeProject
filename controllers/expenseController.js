@@ -21,8 +21,7 @@ router.post('/add', (req, res) => {
         name: req.body.expense.name,
         amount: req.body.expense.amount,
         dueDate: req.body.expense.dueDate,
-        reoccuring: req.body.expense.reoccuring,
-        owner_id: req.user.id
+        reoccuring: req.body.expense.reoccuring
     }
     Expense.create(expenseAdd)
     .then(expense => res.status(200).json(expense))
@@ -37,7 +36,7 @@ router.put('/edit/:id', function(req, res) {
         dueDate: req.body.expense.dueDate,
         reoccuring: req.body.expense.reoccuring
     };
-    const query = { where: { id: req.params.id, owner_id: req.user.id}};
+    const query = { where: { id: req.params.id}};
 
     Expense.update(updateExpense, query)
     .then((expenses) => res.status(200).json(expenses))
@@ -45,24 +44,22 @@ router.put('/edit/:id', function(req, res) {
 });
 
 router.delete('/delete/:id', function(req, res) {
-    const query = {where: {id: req.params.id, owner_id: req.user.id}};
+    const query = {where: {id: req.params.id}};
 
     Expense.destroy(query)
     .then(() => res.status(200).json({message: "Expense Deleted"}))
     .catch((err) => res.status(500).json({error: err}));
 });
 
-router.get('all', (req, res) => {
-    let userid = req.user.id;
-    Expense.findAll({where:{owner_id: userid}})
+router.get('/all', (req, res) => {
+    Expense.findAll()
     .then(expenses => res.status(200).json(expenses))
     .catch(err => res.status(500).json({error: err}))
 });
 
-router.get('view/:id', (req, res) => {
-    let id = req.params.id;
+router.get('/view/:id', (req, res) => {
 
-    Expense.findAll({where: {id: id}})
+    Expense.findAll()
     .then(expenses => res.status(200).json(expenses))
     .catch(err => res.status(500).json({error: err}))
 });
