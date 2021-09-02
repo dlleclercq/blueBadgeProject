@@ -52,7 +52,7 @@ router.delete("/delete/:id", validateSession, function (req, res) {
 });
 
 router.get("/all", validateSession, (req, res) => {
-  Expense.findAll({})
+  Expense.findAll()
     .then((expenses) => res.status(200).json(expenses))
     .catch((err) => res.status(500).json({ error: err }));
 });
