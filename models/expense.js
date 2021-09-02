@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         reoccuring: {
             type: DataTypes.BOOLEAN,
             allowNull: false
+        }, 
+        owner_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     })
     return Expense;

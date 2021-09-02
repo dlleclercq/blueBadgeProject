@@ -19,7 +19,7 @@ router.post("/signup", function (req, res) {
         process.env.JWT_SECRET,
         { expiresIn: 60 * 60 * 24 }
       );
-      res.json({
+      res.status(200).json({
         user: user,
         message: "User successfully Signed Up",
         sessionToken: token,
@@ -41,8 +41,8 @@ router.post("/login", (req, res) => {
     .then(function loginSuccess(user) {
       if (user) {
         bcrypt.compare(
-          req.body.user.password,
-          user.password,
+          req.body.user.passwordhash,
+          user.passwordhash,
           function (err, matches) {
             if (matches) {
               let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {

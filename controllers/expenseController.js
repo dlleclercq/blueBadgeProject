@@ -14,6 +14,7 @@ router.post("/add", validateSession, (req, res) => {
     amount: req.body.expense.amount,
     dueDate: req.body.expense.dueDate,
     reoccuring: req.body.expense.reoccuring,
+    owner_id: req.user.id
   };
   Expense.create(expenseAdd)
     .then((expense) => res.status(200).json(expense))
@@ -27,6 +28,7 @@ router.put("/edit/:id", validateSession, function (req, res) {
     amount: req.body.expense.amount,
     dueDate: req.body.expense.dueDate,
     reoccuring: req.body.expense.reoccuring,
+    owner_id: req.user.id
   };
   const query = { where: { id: req.params.id } };
 
@@ -44,7 +46,7 @@ router.delete("/delete/:id", validateSession, function (req, res) {
 });
 
 router.get("/all", validateSession, (req, res) => {
-  Expense.findAll()
+  Expense.findAll( { where: {owner_id: req.user.id} } )
     .then((expenses) => res.status(200).json(expenses))
     .catch((err) => res.status(500).json({ error: err }));
 });
@@ -52,7 +54,7 @@ router.get("/all", validateSession, (req, res) => {
 router.get("/view/:id", validateSession, (req, res) => {
   let id = req.params.id;
 
-  Expense.findAll({ where: { id: id } })
+  Expense.findAll({ where: { id: id, owner_id: req.user.id } })
     .then((expenses) => res.status(200).json(expenses))
     .catch((err) => res.status(500).json({ error: err }));
 });
