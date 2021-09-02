@@ -1,11 +1,3 @@
-/*
-add - post
-edit/:id - put
-delete/:id - delete
-view/:id - get
-viewall - get
-*/
-
 const express = require("express");
 const router = express.Router();
 const validateSession = require("../middleware/validateSession");
