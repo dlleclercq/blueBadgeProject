@@ -11,7 +11,7 @@ router.post("/add", validateSession, (req, res) => {
   const expenseAdd = {
     category: req.body.expense.category,
     name: req.body.expense.name,
-    amount: req.body.expense.amount,
+    amount: Number(req.body.expense.amount),
     dueDate: req.body.expense.dueDate,
     reoccuring: req.body.expense.reoccuring,
   };
